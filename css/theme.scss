@@ -100,6 +100,35 @@ body{
     border: 0 !important;
 }
 
+.glass-effect{
+    img{
+        @include border-radius(4px);
+    }
+    &:before,
+    &:after{
+        content: '';
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        @include transition(all, 0.5s, ease);
+    }
+
+    &:hover{
+        &:before{
+            right: 50%;
+            left: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }
+        &:after{
+            top: 50%;
+            bottom: 50%;
+            background: rgba(255, 255, 255, 0.2);
+        }      
+    }
+}
+
 // Custom CSS For scrollbar
 
 /* width */
@@ -127,6 +156,7 @@ body{
 
 .header{
     width: 100%;
+    background: $wcolor;
     z-index: 50;
 
     .top-header{
@@ -180,6 +210,11 @@ body{
                     border-bottom-right-radius: 0;
                     box-shadow: none;
                     text-align: center;
+
+                    @include placeholder{
+                        font-size: 13px;
+                        font-weight: 500;
+                    }
                 }
 
                 button{
@@ -206,7 +241,14 @@ body{
 
     .bottom-header{
         padding: 15px 0;
+        .logo{
+            display: none;
+            visibility: hidden;
+            @include opacity(0);
+            @include transition(all,0.3s,ease);
+        }
         .menu{
+            flex: 1;
             .menu-items{
                 position: relative;
                 @include flexbox;
@@ -301,6 +343,96 @@ body{
                     }
                 }
             }
+        }
+        .header-icon{
+            visibility: hidden;
+            @include opacity(0);
+            @include transition(all,0.3s,ease);
+        }
+    }
+
+    .header-icon{
+        .cart-icon{
+            position: relative;
+
+            a{
+                color: $gcolor;
+            }
+
+            .left{
+                position: relative;
+                width: 55px;
+                height: 55px;
+                border: 2px solid #ddd;
+                border-radius: 50%;
+                @include flexbox;
+                @include align-items(center);
+                @include justify-content(center);
+
+                svg{
+                    &:hover{
+                        color: $theme-color;
+                    }
+                }
+
+                .cart-count{
+                    position: absolute;
+                    top: 0;
+                    right: -8px;
+                    width: 20px;
+                    height: 20px;
+                    background: $theme-color;
+                    @include border-radius(50%);
+                    color: $wcolor;
+                    font-size: 12px;
+                    line-height: 20px;
+                    text-align: center;
+                }
+            }
+
+            .right{
+                margin-left: 20px;
+
+                h5{
+                    margin: 0;
+                    margin-bottom: 5px;
+                    text-transform: capitalize;
+                }
+            }
+        }
+    }
+}
+
+.fixed-nav{
+    @include position-fixed;
+    background: $wcolor;
+    border-bottom: 1px solid rgba(221,221,221,0.75);
+    z-index: 50;
+
+    .top-header{
+        display: none;
+    }
+
+    .middle-header{
+        display: none;
+    }
+    
+    .bottom-header{
+        .logo{
+            display: block;
+            visibility: visible;
+            @include opacity(1);
+            @include transition(all,0.3s,ease);
+        }
+        .menu{
+            .menu-items{
+                @include justify-content(center);
+            }
+        }
+        .header-icon{
+            visibility: visible;
+            @include opacity(1);
+            @include transition(all,0.3s,ease);
         }
     }
 }
@@ -403,157 +535,171 @@ body{
 }
 
 .main-content{
-
+    background: #f5f6f9;
     .category-slider{
+        padding-top: 25px;
         .homeCategory{
-            background: #f5f5f5f5;
+            background: $wcolor;
             margin-right: -15px;
 
             .category-header{
                 @include flexbox;
                 @include align-items(center);
-                @include justify-content(space-between);
-                border-bottom: 1px solid $wcolor;
+                //@include justify-content(space-between);
+                //border-bottom: 1px solid #ddd;
                 padding: 5px 15px;
 
                 h4{
+                    font-size: 16px;
+                    margin-left: 15px;
                     text-transform: uppercase;
+                }
+            }
+
+            .category-item{
+                li{
+                    border-top: 1px solid #ddd;
+                    padding: 10px 15px;
+
+                    a{
+                        color: $theme-color;
+                        font-size: 15px;
+                        text-transform: capitalize;
+                    }
+                }
+            }
+        }
+        #homeCarousel{
+            .carousel-indicators{
+                li{
+                    background-color: $gcolor;
+                    border: 1px solid $gcolor;
+                }
+
+                .active{
+                    width: 30px;
+                    height: 10px;
+                    background-color: $theme-color;
+                    border: 1px solid $theme-color;
+                }
+            }
+        }
+    }
+
+    .services{
+        margin-top: 20px;
+        .content-wrapper{
+            width: 78.5%;
+            background: $wcolor;
+            padding: 20px 15px;
+        }
+        .service-box{
+            @include flexbox;
+            @include align-items(center);
+            border-left: 1px solid #ddd;
+            padding: 0 15px;
+            .icon{
+                flex: 0 0 60px;
+                svg{
+                    height: 40px;
+                    width: 40px;
+                    fill: $theme-color;
+                }
+                #sfirst{
+                    path,line,circle{
+                        stroke: $theme-color !important;
+                    }
+                }
+                #sthird{
+                    path{
+                        fill: $theme-color !important;;
+                    }
+                }
+                
+            }
+            .text{
+                h5{
+                    margin-top: 0;
+                    margin-bottom: 5px;
+                    text-transform: capitalize;
+                }
+                p{
+                    margin: 0;
                 }
             }
         }
     }
     
-    .gallary-collection{
-        .gallary-collection-wrapper{
-            @include flexbox;
-            div{
-                position: relative;
-                overflow: hidden;
-            }
-            .collection-banner{
-                .child-collection-wrapper{
-                    @include flexbox;
+    .home-collection-box{
+        margin-top: 20px;
+    }
 
-                    .child-collection{
-                        .banner-info{
-                            top: 40%;
+    .group-collection{
+        .group-collection-header{
+            position: relative;
+            border-bottom: 1px solid #ddd;
+            @include flexbox;
+            @include align-items(center);
+            @include justify-content(space-between);
+            margin-top: 20px;
+            padding-bottom: 15px;
+
+            h3{
+                margin: 0;
+            }
+
+            .nav-pills{
+                li{
+                    a{
+                        @include border-radius(0);
+                        color: $theme-color;
+                        font-size: 16px;
+                        font-weight: 500;
+                        padding: 5px 10px;
+                        text-transform: capitalize;
+
+                        &:hover,
+                        &:focus{
+                            background: transparent;
+                            color: $theme-color;
+                            outline: 0;
                         }
                     }
                 }
-                .banner-info{
-                    position: absolute;
-                    top: 10%;
-                    width: 100%;
-                    text-align: center;
-                }
-            }
-        }
-    }
-    .group-collection{
-        .nav-pills{
-            li{
-                a{
-                    @include border-radius(0);
-                    color: $text-color;
-                    font-size: 16px;
-                    font-weight: 500;
-                    padding: 5px 10px;
-                    text-transform: capitalize;
-
-                    &:hover,
-                    &:focus{
-                        background: $theme-color;
-                        color: $wcolor;
-                        outline: 0;
+                .active{
+                    a{
+                        background: transparent;
+                        color: $theme-color;
                     }
                 }
             }
-            .active{
-                a{
-                    background: $theme-color;
-                    color: $wcolor;
-                }
+
+            &:after{
+                content: '';
+                position: absolute;
+                bottom: -1px;
+                width: 5%;
+                height: 2px;
+                background: $theme-color;
             }
         }
-        .tab-content{
+        .group-collection-content{
             margin-top: 30px;
         }
+        
     }
-    .simple-collection{
-        .simple-collection-wrapper{
-            @include flexbox;
-            .simple-collection-box{
-                position: relative;
-                .photo{
-                    overflow: hidden;
-                }
-                .text{
-                    position: absolute;
-                    top: 40%;
-                    right: 10%;
-                    text-transform: uppercase;
-                }
-            }
-        }
-        .brand-slider{
-            .item{
-                border-top: 1px solid #ddd;
-                border-bottom: 1px solid #ddd;
-                border-left: 1px solid #ddd;
-                .brand-box{
-                    @include flexbox;
-                    @include align-items(center);
-                    @include justify-content(center);
-                    padding: 50px 0;
-                }
-            }
-            .owl-nav{
-                display: none;
-            }
-        }
-    }
-    .bottom-collection{
-        background: #f5f5f5;
-        padding: 50px 0;
-        .content-wrapper{
-            background: $wcolor;
-            padding: 50px 100px;
-            h3{
-                text-transform: uppercase;
-            }
-            .bottom-products{
-                margin-top: 25px;
-            }
-            .services{
-                .service-box{
-                    @include flexbox;
-                    @include align-items(center);
-                    border-left: 1px solid #ddd;
-                    padding: 0 15px;
-                    .icon{
-                        flex: 0 0 70px;
-                    }
-                    .text{
-                        h5{
-                            text-transform: capitalize;
-                        }
-                    }
-                }
-            }
-        }
-    }
+    
 }
 
 .product-box{
     position: relative;
-    margin-bottom: 10px;
+    @include border-radius(3px);
+    margin-bottom: 20px;
     .photo{
         position: relative;
-        flex: 0 0 125px;
+        flex: 0.4;
+        padding: 20px;
 
-        .back-img{
-            display: none;
-        }
         .tag{
             position: absolute;
             top: 15px;
@@ -598,7 +744,7 @@ body{
         }
     }
     .content{
-        border: 1px solid rgba(27, 27, 27, 0.10);
+        flex: 1;
         padding: 20px;
 
         div:not(.price){
@@ -606,7 +752,7 @@ body{
         }
         .ratting{
             i{
-                color: $gcolor;
+                color: $theme-color;
             }
         }
         .name{
@@ -617,13 +763,13 @@ body{
             }
         }
         .price{
-            s{
-                color: $gcolor;
-                font-weight: 400;
+            span{
+                color: $bcolor;
+                font-weight: 500;
                 margin-right: 10px;
             }
-            span{
-                color: $theme-color;
+            s{
+                color: $gcolor;
                 font-weight: 500;
             }
         }
@@ -645,6 +791,7 @@ body{
 }
 
 .horizontal-product-box{
+    background: $wcolor;
     @include flexbox;
     @extend .product-box;
 }

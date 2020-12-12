@@ -1,4 +1,12 @@
 $(document).ready(function(){
+    $(window).scroll(function (){
+        if ($(this).scrollTop() > 50){
+            $("#header").addClass('fixed-nav').slideDown('slow');
+        } else {
+            $("#header").removeClass('fixed-nav');
+        }
+    });
+
 	$(".search-input").focus(function (){
         $(".search-suggestions").fadeIn("slow");
         $(".search-box").find(".input-group").css("border-color","#000");
